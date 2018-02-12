@@ -37,7 +37,7 @@ public:
         nDefaultPort = 9253;
         nRPCPort = 9252;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 18);
-        nSubsidyHalvingInterval = 500000;
+        nSubsidyHalvingInterval = 63113852; //300 years.  After 200 years start working on a new paradigm!  Crypto was fun while it lasted...
 
         // Build the genesis block. Note that the output of the genesis coinbase cannot
         // be spent as it did not originally exist in the database.
@@ -47,20 +47,20 @@ public:
         //     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73)
         //     CTxOut(nValue=50.00000000, scriptPubKey=0x5F1DF16B2B704C8A578D0B)
         //   vMerkleTree: 4a5e1e
-        const char* pszTimestamp = "The Times 8/Nov/2014 BitZeny gahGae1k";
+        const char* pszTimestamp = "V2hvIGlzIHRoaXMgS2luZyBvZiBHbG9yeT8gQ2hpbmVzZSBTY2hvbGFyIFNheXMgRmlnaHQgVGhlIFN0YXRlIE9uIFJlbGlnaW9u";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 250 * COIN;
+        txNew.vout[0].nValue = 331776 * COIN;  //make sure the same as set in main.c
         txNew.vout[0].scriptPubKey = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime    = 1415384723;
+        genesis.nTime    = 1518398130;
         genesis.nBits    = 0x1e3fffff;
-        genesis.nNonce   = 369858;
+        genesis.nNonce   = 0;
 
         hashGenesisBlock = genesis.GetHash();
 #if 0
@@ -79,10 +79,10 @@ public:
             printf("genesis.nNonce %d\n", genesis.nNonce);
         }
 #endif
-        assert(hashGenesisBlock == uint256("0x000009f7e55e9e3b4781e22bd87a7cfa4acada9e4340d43ca738bf4e9fb8f5ce"));
-        assert(genesis.hashMerkleRoot == uint256("0xa626e591b4583a9cdfa3f8c7ffa90628c745dc01b411825544209fce3bdba4d2"));
+        assert(hashGenesisBlock == uint256("0x"));  //assert(hashGenesisBlock == uint256("0x")); for generating genesis block
+        assert(genesis.hashMerkleRoot == uint256("0x"));  //assert(genesis.hashMerkleRoot == uint256("0x")); for generating genesis block
 
-        vSeeds.push_back(CDNSSeedData("bitzeny.org", "seed.bitzeny.org"));
+        vSeeds.push_back(CDNSSeedData("", ""));  //removed seeds to generate new blockchain
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(81);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
